@@ -129,7 +129,7 @@ int main()
                 LCD_PrintString("Type Num");
             }
             
-        if (key == '*' & opChooser < 5 & calcReset ==0)
+        if (key == '*' & opChooser < 5 & calcReset == 0)
             {
                 LCD_Position(0,0);
                 LCD_PrintString("");
@@ -138,9 +138,18 @@ int main()
         
 		LCD_Position(1,12);		
 		LCD_PrintNumber(numTemp);
-    }
-      
-}    
+	//Numbers	
+	else if (key == '0-9' && calcReset == 0)
+	   {
+		op1Done = 0;
+		LCD_PrintString("Oprtn w/ *");
+		/*Process first operand*/ (num1);
+		LCD_Position()
+		
+	   }
+	}
+   }
+}
 
 /* [] END OF FILE */
 
