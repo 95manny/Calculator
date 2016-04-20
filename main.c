@@ -89,12 +89,15 @@ int main()
     SPIS_Start();
     Timer_1_Start();
     TimerISR_Start();
-    //LCD_Position(0,0);
-    //LCD_PrintString("Type Num");
         
     // Continuously loop to receive/print keyboard data from Ardo-SPIM to PSoC3-SPIS
     while(1)
     {
+    	LCD_Position(0,0);
+    	LCD_PrintString("Enter Num");
+    	LCD_Position(0,11);
+    	LCD_PrintNumber(Timer_1_ReadCapture);
+    	
         // Wait for received data ready
         while(!(SPIS_ReadRxStatus() & SPIS_STS_RX_FIFO_NOT_EMPTY));
                 
@@ -104,11 +107,11 @@ int main()
 			
 		// Print key data to LCD screen, as hex value to show ASCII code
 		//LCD_Position(1,6);
-        //LCD_PrintHexUint8(key);
+        	//LCD_PrintHexUint8(key);
 		
 		// Subtract ASCII 30 to allow actual digit value to display
 		//key = key - '0';
-		numTemp = key - 30;
+		numTemp = key - '0';
         
         if(key == '#' && calcReset == 1)
             {
@@ -126,10 +129,11 @@ int main()
                 int calcReset = 0;
                 
                 LCD_Position(0,0);
-                LCD_PrintString("Type Num");
+                LCD_PrintString("Enter Num");
+                LCD_Position(1,12);		
+		LCD_PrintNumber(numTemp);
             }
-        /*****'*' key for operation chooser*****/
-
+            
         if (key == '*' & opChooser < 5 & calcReset == 0)
             {
                 LCD_Position(0,0);
@@ -139,41 +143,18 @@ int main()
         
 		LCD_Position(1,12);		
 		LCD_PrintNumber(numTemp);
+	//Numbers	
+	else if (key == '0-9' && calcReset == 0)
+	   {
+		op1Done = 0;
+		LCD_PrintString("Oprtn w/ *");
+		/*Process first operand*/ (num1);
+		LCD_Position()
 		
-	/**********'#' key for '='**********/
-        if(key == '#' && op1Done > 1 && calcReset == 0)
-        {
-            LCD_PrintString("=");
-            if (opChooser == 1)
-            //Add
-            if (opChooser == 2)
-            //Subtract
-            if (opChooser == 3)
-            //Multiply
-            if (opChooser == 4)
-            //Divide
-            //handle special cases
-            LCD_Position();
-            LCD_PrintDecUint16(
-        
-    /**********NUMBERS**********/
- 	    if((key >= '0' || key <= '9') && calcReset == 0)
- 	    {
- 		    op1Done = 0;
- 		    LCD_PrintString("Oprtn w/ *");
- 		    num1 = numTemp;
- 		    LCD_Position(1,10);
-            LCD_PrintNumber(num1);
- 	    }
-        else
-        {
-            LCD_PrintString("Equal w/*");
-            num2 = numTemp;
-            LCD_Position(1,13);
-            LCD_PrintNumber(num2);
-        } 
-    } //End of While Loop 
-} //End of Int Main
+	   }
+	}
+   }
+}
 
 /* [] END OF FILE */
 
