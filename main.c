@@ -128,7 +128,8 @@ int main()
                 LCD_Position(0,0);
                 LCD_PrintString("Type Num");
             }
-            
+        /*****'*' key for operation chooser*****/
+
         if (key == '*' & opChooser < 5 & calcReset == 0)
             {
                 LCD_Position(0,0);
@@ -138,18 +139,41 @@ int main()
         
 		LCD_Position(1,12);		
 		LCD_PrintNumber(numTemp);
-	//Numbers	
-	else if (key == '0-9' && calcReset == 0)
-	   {
-		op1Done = 0;
-		LCD_PrintString("Oprtn w/ *");
-		/*Process first operand*/ (num1);
-		LCD_Position()
 		
-	   }
-	}
-   }
-}
+	/**********'#' key for '='**********/
+        if(key == '#' && op1Done > 1 && calcReset == 0)
+        {
+            LCD_PrintString("=");
+            if (opChooser == 1)
+            //Add
+            if (opChooser == 2)
+            //Subtract
+            if (opChooser == 3)
+            //Multiply
+            if (opChooser == 4)
+            //Divide
+            //handle special cases
+            LCD_Position();
+            LCD_PrintDecUint16(
+        
+    /**********NUMBERS**********/
+ 	    if((key >= '0' || key <= '9') && calcReset == 0)
+ 	    {
+ 		    op1Done = 0;
+ 		    LCD_PrintString("Oprtn w/ *");
+ 		    num1 = numTemp;
+ 		    LCD_Position(1,10);
+            LCD_PrintNumber(num1);
+ 	    }
+        else
+        {
+            LCD_PrintString("Equal w/*");
+            num2 = numTemp;
+            LCD_Position(1,13);
+            LCD_PrintNumber(num2);
+        } 
+    } //End of While Loop 
+} //End of Int Main
 
 /* [] END OF FILE */
 
